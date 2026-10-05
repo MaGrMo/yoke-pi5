@@ -1,0 +1,42 @@
+name: Build Yoke firmware
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: yocto-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux, yocto]
+    timeout-minutes: 1440
+    env:
+      YOKE_CACHE: /srv/yocto-cache
+      MACHINE: raspberrypi5
+      IMAGE: yoke-image
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build image
+        run: ./docker-build.sh
+
+      - name: Collect firmware
+        run: |
+          D=build/tmp/deploy/images/$MACHINE
+          mkdir -p out
+          cp -L $D/$IMAGE-$MACHINE.rootfs.wic.bz2 \
+                $D/$IMAGE-$MACHINE.rootfs.wic.bmap \
+                $D/$IMAGE-$MACHINE.rootfs.manifest out/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yoke-pi5-${{ github.sha }}
+          path: out/
+          compression-level: 0
+          retention-days: 30

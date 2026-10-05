@@ -1,0 +1,24 @@
+[submodule "layers/poky"]
+	path = layers/poky
+	url = https://git.yoctoproject.org/poky
+	branch = scarthgap
+[submodule "layers/meta-raspberrypi"]
+	path = layers/meta-raspberrypi
+	url = https://git.yoctoproject.org/meta-raspberrypi
+	branch = scarthgap
+[submodule "layers/meta-lts-mixins"]
+	path = layers/meta-lts-mixins
+	url = https://git.yoctoproject.org/meta-lts-mixins
+	branch = scarthgap/u-boot
+[submodule "layers/meta-openembedded"]
+	path = layers/meta-openembedded
+	url = https://git.openembedded.org/meta-openembedded
+	branch = scarthgap
+[submodule "layers/meta-virtualization"]
+	path = layers/meta-virtualization
+	url = https://git.yoctoproject.org/meta-virtualization
+	branch = scarthgap
+[submodule "layers/meta-ros"]
+	path = layers/meta-ros
+	url = https://github.com/ros/meta-ros.git
+	branch = scarthgap

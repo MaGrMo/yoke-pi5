@@ -1,0 +1,3 @@
+
+Yoke Pi5 build. Ціль за замовчуванням:
+    yoke-image
