@@ -24,7 +24,7 @@ python __anonymous() {
 
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM:${PN} = "${YOKE_USER}"
-USERADD_PARAM:${PN} = "-d /home/${YOKE_USER} -s /bin/sh -g ${YOKE_USER} -G wheel ${YOKE_PASSWORD_OPT} ${YOKE_USER}"
+USERADD_PARAM:${PN} = "-d /home/${YOKE_USER} -s /bin/bash -g ${YOKE_USER} -G wheel ${YOKE_PASSWORD_OPT} ${YOKE_USER}"
 
 do_install() {
     install -d -m 0755 -o ${YOKE_USER} -g ${YOKE_USER} ${D}/home/${YOKE_USER}
@@ -36,4 +36,4 @@ do_install() {
 }
 
 FILES:${PN} = "/home/${YOKE_USER} ${sysconfdir}/sudoers.d"
-RDEPENDS:${PN} = "sudo"
+RDEPENDS:${PN} = "sudo bash"
