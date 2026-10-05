@@ -21,4 +21,9 @@ set +u
 source layers/poky/oe-init-build-env "$ROOT/build" > /dev/null
 set -u
 
+cat > conf/site.conf <<EOF
+DL_DIR = "$DL_DIR"
+SSTATE_DIR = "$SSTATE_DIR"
+EOF
+
 bitbake "$IMAGE" "$@"
