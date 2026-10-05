@@ -1,3 +1,3 @@
 
-Yoke Pi5 build. Ціль за замовчуванням:
+Yoke Pi5 build. Default target:
     yoke-image

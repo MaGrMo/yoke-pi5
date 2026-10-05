@@ -1,5 +1,5 @@
-# Мережа WiFi задається з build.sh через site.conf (WIFI_SSID / WIFI_PSK / WIFI_COUNTRY).
-# Без WIFI_SSID лишається стандартний конфіг poky.
+# The WiFi network is set by build.sh via site.conf (WIFI_SSID / WIFI_PSK / WIFI_COUNTRY).
+# Without WIFI_SSID poky's default config is kept.
 WIFI_SSID ??= ""
 WIFI_PSK ??= ""
 WIFI_COUNTRY ??= "UA"

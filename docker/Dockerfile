@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-# Той самий UID/GID, що й у користувача раннера, щоб не було проблем з правами
+# Same UID/GID as the runner user to avoid file permission issues
 ARG UID=1000
 ARG GID=1000
 RUN groupadd -o -g ${GID} builder && useradd -m -o -u ${UID} -g ${GID} builder

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Одноразово: додає всі шари як git submodules (запускати з кореня репозиторію)
+# One-time: adds all layers as git submodules (run from the repository root)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -10,4 +10,4 @@ git submodule add -b scarthgap        https://git.openembedded.org/meta-openembe
 git submodule add -b scarthgap        https://git.yoctoproject.org/meta-virtualization      layers/meta-virtualization
 git submodule add -b scarthgap        https://github.com/ros/meta-ros.git                   layers/meta-ros
 
-echo "Готово. Тепер: git add . && git commit -m 'Add layers' && git push"
+echo "Done. Now: git add . && git commit -m 'Add layers' && git push"

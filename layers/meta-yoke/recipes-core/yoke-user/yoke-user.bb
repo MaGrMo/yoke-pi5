@@ -11,8 +11,8 @@ S = "${WORKDIR}"
 inherit useradd
 
 YOKE_USER ??= "yoke"
-# Хеш з `openssl passwd -6`, знаки $ екрановані як \$ (це робить build.sh).
-# Без хешу пароль заблокований, і вхід можливий лише по SSH-ключу.
+# Hash from `openssl passwd -6`, with $ escaped as \$ (build.sh does this).
+# Without a hash the password is locked and only SSH key login works.
 YOKE_PASSWORD_HASH ??= ""
 
 YOKE_PASSWORD_OPT = ""

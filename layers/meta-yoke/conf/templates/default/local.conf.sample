@@ -1,10 +1,10 @@
-# Згенеровано з layers/meta-yoke/conf/templates/default/local.conf.sample
-# Змінюйте шаблон, а не build/conf/local.conf
+# Generated from layers/meta-yoke/conf/templates/default/local.conf.sample
+# Edit the template, not build/conf/local.conf
 
 MACHINE ??= "raspberrypi5"
 DISTRO ?= "poky"
 
-# DL_DIR і SSTATE_DIR задаються з build.sh через змінні середовища
+# DL_DIR and SSTATE_DIR are set by build.sh from environment variables
 DL_DIR ?= "${TOPDIR}/../cache/downloads"
 SSTATE_DIR ?= "${TOPDIR}/../cache/sstate-cache"
 
@@ -16,7 +16,7 @@ IMAGE_FSTYPES = "wic.bz2 wic.bmap"
 # meta-virtualization
 DISTRO_FEATURES:append = " virtualization"
 
-# debug-tweaks (root без пароля) не вмикаємо: вхід через користувача з рецепту yoke-user
+# debug-tweaks (passwordless root) stays off: log in as the user from the yoke-user recipe
 EXTRA_IMAGE_FEATURES ?= ""
 
 INHERIT += "rm_work"

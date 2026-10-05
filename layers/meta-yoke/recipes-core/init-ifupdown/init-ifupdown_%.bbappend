@@ -1,2 +1,2 @@
-# Свій /etc/network/interfaces: піднімає wlan0 автоматично
+# Custom /etc/network/interfaces: brings wlan0 up automatically
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"

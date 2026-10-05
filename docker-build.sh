@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Запускає build.sh у контейнері Ubuntu 22.04 (офіційно підтримуваний хост для scarthgap)
+# Runs build.sh in an Ubuntu 22.04 container (officially supported host for scarthgap)
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CACHE="${YOKE_CACHE:-$ROOT/cache}"

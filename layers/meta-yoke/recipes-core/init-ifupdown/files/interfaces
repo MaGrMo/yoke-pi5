@@ -1,4 +1,4 @@
-# /etc/network/interfaces (з meta-yoke)
+# /etc/network/interfaces (from meta-yoke)
 
 auto lo
 iface lo inet loopback
@@ -6,7 +6,7 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet dhcp
 
-# wpa_supplicant запускається з /etc/network/if-pre-up.d/wpa-supplicant
+# wpa_supplicant is started by /etc/network/if-pre-up.d/wpa-supplicant
 auto wlan0
 iface wlan0 inet dhcp
 	wpa-driver nl80211

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Збирає образ. Працює і на хості, і всередині Docker-контейнера.
+# Builds the image. Works both on the host and inside the Docker container.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
@@ -7,7 +7,7 @@ cd "$ROOT"
 IMAGE="${IMAGE:-yoke-image}"
 export MACHINE="${MACHINE:-raspberrypi5}"
 
-# Кеші поза build/, щоб переживали очищення робочої директорії
+# Caches live outside build/ so they survive a clean of the working directory
 CACHE="${YOKE_CACHE:-$ROOT/cache}"
 export DL_DIR="$CACHE/downloads"
 export SSTATE_DIR="$CACHE/sstate-cache"
@@ -15,7 +15,7 @@ mkdir -p "$DL_DIR" "$SSTATE_DIR"
 
 git submodule update --init --recursive
 
-# Конфіг береться з нашого шару, а не з meta-poky
+# Take the config templates from our layer, not from meta-poky
 export TEMPLATECONF="$ROOT/layers/meta-yoke/conf/templates/default"
 set +u
 source layers/poky/oe-init-build-env "$ROOT/build" > /dev/null
@@ -26,12 +26,12 @@ DL_DIR = "$DL_DIR"
 SSTATE_DIR = "$SSTATE_DIR"
 EOF
 
-# Хеш пароля користувача yoke (openssl passwd -6); $ екрануємо для useradd
+# Password hash for user yoke (openssl passwd -6); escape $ for useradd
 if [ -n "${YOKE_PASSWORD_HASH:-}" ]; then
   echo "YOKE_PASSWORD_HASH = \"${YOKE_PASSWORD_HASH//\$/\\\$}\"" >> conf/site.conf
 fi
 
-# WiFi для автопідключення (див. meta-yoke wpa-supplicant bbappend)
+# WiFi auto-connect (see the wpa-supplicant bbappend in meta-yoke)
 if [ -n "${WIFI_SSID:-}" ]; then
   cat >> conf/site.conf <<EOF
 WIFI_SSID = "$WIFI_SSID"
