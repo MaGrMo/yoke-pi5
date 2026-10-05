@@ -9,4 +9,7 @@ IMAGE_INSTALL:append = " \
     ros-core \
     nano \
     curl \
+    wpa-supplicant \
+    iw \
+    yoke-user \
 "

@@ -17,6 +17,9 @@ jobs:
       YOKE_CACHE: /srv/yocto-cache
       MACHINE: raspberrypi5
       IMAGE: yoke-image
+      WIFI_SSID: ${{ secrets.WIFI_SSID }}
+      WIFI_PSK: ${{ secrets.WIFI_PSK }}
+      YOKE_PASSWORD_HASH: ${{ secrets.YOKE_PASSWORD_HASH }}
 
     steps:
       - uses: actions/checkout@v4

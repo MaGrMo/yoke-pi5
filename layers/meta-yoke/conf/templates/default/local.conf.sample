@@ -16,8 +16,8 @@ IMAGE_FSTYPES = "wic.bz2 wic.bmap"
 # meta-virtualization
 DISTRO_FEATURES:append = " virtualization"
 
-# Розробка: root без пароля. Прибрати для релізу!
-EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+# debug-tweaks (root без пароля) не вмикаємо: вхід через користувача з рецепту yoke-user
+EXTRA_IMAGE_FEATURES ?= ""
 
 INHERIT += "rm_work"
 USER_CLASSES ?= "buildstats"

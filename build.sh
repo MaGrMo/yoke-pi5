@@ -26,4 +26,20 @@ DL_DIR = "$DL_DIR"
 SSTATE_DIR = "$SSTATE_DIR"
 EOF
 
+# Хеш пароля користувача yoke (openssl passwd -6); $ екрануємо для useradd
+if [ -n "${YOKE_PASSWORD_HASH:-}" ]; then
+  echo "YOKE_PASSWORD_HASH = \"${YOKE_PASSWORD_HASH//\$/\\\$}\"" >> conf/site.conf
+fi
+
+# WiFi для автопідключення (див. meta-yoke wpa-supplicant bbappend)
+if [ -n "${WIFI_SSID:-}" ]; then
+  cat >> conf/site.conf <<EOF
+WIFI_SSID = "$WIFI_SSID"
+WIFI_PSK = "${WIFI_PSK:-}"
+EOF
+  if [ -n "${WIFI_COUNTRY:-}" ]; then
+    echo "WIFI_COUNTRY = \"$WIFI_COUNTRY\"" >> conf/site.conf
+  fi
+fi
+
 bitbake "$IMAGE" "$@"
