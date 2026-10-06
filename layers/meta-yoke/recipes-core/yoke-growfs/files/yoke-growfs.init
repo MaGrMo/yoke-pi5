@@ -1,0 +1,38 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          yoke-growfs
+# Required-Start:    $local_fs
+# Default-Start:     2 3 4 5
+# Short-Description: Grow the root partition and filesystem to the whole SD card (first boot only)
+### END INIT INFO
+
+DONE=/var/lib/yoke-growfs.done
+LOG=/var/log/yoke-growfs.log
+
+[ "$1" = "start" ] || exit 0
+[ -e $DONE ] && exit 0
+
+ROOT=$(sed -n 's/.*root=\([^ ]*\).*/\1/p' /proc/cmdline)
+case "$ROOT" in
+    /dev/mmcblk*p*|/dev/nvme*p*) DISK=${ROOT%p*}; PART=${ROOT##*p} ;;
+    /dev/sd*) DISK=${ROOT%%[0-9]*}; PART=${ROOT#$DISK} ;;
+    *) echo "yoke-growfs: unsupported root device '$ROOT'" | tee -a $LOG; exit 0 ;;
+esac
+
+echo "yoke-growfs: growing $ROOT to the end of $DISK"
+{
+    # Extend the last partition to the end of the disk. The disk is in use,
+    # so skip sfdisk's re-read and tell the kernel about the new size with partx.
+    echo ", +" | sfdisk --no-reread --no-tell-kernel -N "$PART" "$DISK" &&
+    partx -u -n "$PART" "$DISK" &&
+    resize2fs "$ROOT"
+} >> $LOG 2>&1
+
+# Retried on the next boot if anything failed; every step is safe to repeat
+if [ $? -eq 0 ]; then
+    mkdir -p "$(dirname $DONE)"
+    touch $DONE
+    echo "yoke-growfs: done"
+else
+    echo "yoke-growfs: failed, see $LOG"
+fi

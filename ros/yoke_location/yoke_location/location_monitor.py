@@ -26,7 +26,7 @@ def describe(lat, lon):
 class LocationMonitor(Node):
     def __init__(self):
         super().__init__('location_monitor')
-        self.threshold_m = self.declare_parameter('threshold_m', 100.0).value
+        self.threshold_m = self.declare_parameter('threshold_m', 10000.0).value
         # Consecutive fixes beyond the threshold needed to report a move (filters GPS jumps)
         self.confirm_samples = self.declare_parameter('confirm_samples', 3).value
 
@@ -61,7 +61,8 @@ class LocationMonitor(Node):
         self.get_logger().info(f'Moved {dist:.0f} m to {lat:.6f}, {lon:.6f}')
         self.reference = (lat, lon)
         self.beyond_count = 0
-        self.notify(f'Moved {dist:.0f} m', describe(lat, lon))
+        moved = f'{dist / 1000:.1f} km' if dist >= 1000 else f'{dist:.0f} m'
+        self.notify(f'Moved {moved}', describe(lat, lon))
 
     def notify(self, title, message):
         self.pending.append((title, message))

@@ -29,5 +29,7 @@ IMAGE_INSTALL:append = " \
     os-release \
 "
 
-# Free space on the root partition, in KB (4 GiB). Empty blocks are skipped by bmaptool.
-IMAGE_ROOTFS_EXTRA_SPACE = "4194304"
+# The root partition grows to the whole SD card on first boot (yoke-growfs).
+# Until then keep 512 MiB free (in KB), enough for the VS Code server.
+IMAGE_INSTALL:append = " yoke-growfs"
+IMAGE_ROOTFS_EXTRA_SPACE = "524288"

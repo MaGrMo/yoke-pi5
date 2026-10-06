@@ -15,7 +15,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('gps_port', default_value='/dev/ttyAMA0'),
         DeclareLaunchArgument('gps_baud', default_value='9600'),
-        DeclareLaunchArgument('threshold_m', default_value='100.0'),
+        DeclareLaunchArgument('threshold_m', default_value='10000.0'),
 
         node('notifier'),
         node('gps_node', [{

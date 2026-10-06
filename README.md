@@ -7,7 +7,7 @@ Yocto (scarthgap) + ROS 2 Jazzy firmware for Raspberry Pi 5.
 - WiFi that connects automatically on boot (sysvinit + ifupdown + wpa_supplicant)
 - User `yoke` with a password, SSH key login and `sudo` (password required); root is locked
 - Dropbear SSH server; works with VS Code Remote-SSH
-- 4 GiB of free space on the root partition
+- The root partition grows to the whole SD card on first boot (`/etc/init.d/yoke-growfs`, log: `/var/log/yoke-growfs.log`)
 - GPS tracker with phone notifications (ROS 2 nodes started on boot), see [GPS tracker](#gps-tracker)
 
 ## Layout
@@ -40,7 +40,7 @@ Set in GitHub → Settings → Secrets and variables → Actions → Secrets:
 ## Writing to an SD card
     sudo bmaptool copy yoke-image-raspberrypi5.rootfs.wic.bz2 /dev/sdX   # needs the .bmap next to it
 
-or, on macOS without bmaptool (slower, writes the empty space too):
+or, on macOS without bmaptool:
 
     bzcat yoke-image-raspberrypi5.rootfs.wic.bz2 | sudo dd of=/dev/rdiskN bs=4m
 
@@ -64,7 +64,7 @@ ROS packages are in `ros/` (`yoke_interfaces`, `yoke_location`), their recipes i
   `tf-transformations` dependency has an unresolved `python3-transforms3d` in meta-ros.)
 - **`location_monitor`** — subscribes to `/fix`, ignores samples without a fix, and calls `/notify`:
   - on the first GPS fix (this becomes the reference point);
-  - when the position is more than 100 m from the last notified point for 3 samples in a row
+  - when the position is more than 10 km from the last notified point (`threshold_m`) for 3 samples in a row
     (filters out GPS jumps); the new position becomes the reference point.
 - **`notifier`** — provides the `/notify` service and sends notifications through
   [ntfy](https://ntfy.sh) (no account or password). On startup it sends "Yoke online" with the Pi's IP, retrying until the network is up.
