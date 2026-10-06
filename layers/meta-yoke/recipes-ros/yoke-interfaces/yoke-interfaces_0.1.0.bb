@@ -13,7 +13,16 @@ DEPENDS = " \
     ament-cmake-native \
     rosidl-default-generators-native \
 "
-RDEPENDS:${PN} += "rosidl-default-runtime"
+# Without the target dependencies ament finds the native (x86) libraries and fails to link
+# ("file in wrong format"); same fix as meta-ros applies to std-srvs
+DEPENDS += " \
+    rosidl-default-runtime \
+    service-msgs \
+"
+RDEPENDS:${PN} += " \
+    rosidl-default-runtime \
+    builtin-interfaces \
+"
 
 ROS_BUILD_TYPE = "ament_cmake"
 inherit ros_${ROS_BUILD_TYPE}
