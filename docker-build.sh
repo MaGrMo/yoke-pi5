@@ -15,5 +15,5 @@ TTY=""
 docker run --rm $TTY \
   -v "$ROOT:$ROOT" -v "$CACHE:$CACHE" -w "$ROOT" \
   -e YOKE_CACHE="$CACHE" -e MACHINE -e IMAGE \
-  -e WIFI_SSID -e WIFI_PSK -e WIFI_COUNTRY -e YOKE_PASSWORD_HASH \
+  -e WIFI_SSID -e WIFI_PSK -e WIFI_COUNTRY -e YOKE_PASSWORD_HASH -e NTFY_TOPIC \
   yoke-builder ./build.sh "$@"

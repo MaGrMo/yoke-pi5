@@ -42,4 +42,9 @@ EOF
   fi
 fi
 
+# ntfy topic for the GPS notifications (see the yoke-ros recipe in meta-yoke)
+if [ -n "${NTFY_TOPIC:-}" ]; then
+  echo "NTFY_TOPIC = \"$NTFY_TOPIC\"" >> conf/site.conf
+fi
+
 bitbake "$IMAGE" "$@"

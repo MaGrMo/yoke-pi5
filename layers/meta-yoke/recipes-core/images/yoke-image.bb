@@ -14,6 +14,13 @@ IMAGE_INSTALL:append = " \
     yoke-user \
 "
 
+# GPS tracker: ROS nodes started on boot, NTP for correct time (TLS needs it)
+IMAGE_INSTALL:append = " \
+    yoke-ros \
+    chrony \
+    chronyc \
+"
+
 # Needed by the VS Code Remote-SSH server
 IMAGE_INSTALL:append = " \
     bash \

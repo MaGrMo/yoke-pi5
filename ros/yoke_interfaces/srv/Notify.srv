@@ -1,0 +1,6 @@
+# Send a notification to the phone (via ntfy)
+string title
+string message
+---
+bool success
+string error
