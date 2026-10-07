@@ -55,6 +55,7 @@ Edit the template in `meta-yoke`, then `rm -rf build/conf` and rerun the build
 ## GPS tracker
 A u-blox NEO-6M GPS on the Pi's UART; the Pi sends a phone notification when it moves.
 ROS packages are in `ros/` (`yoke_interfaces`, `yoke_location`), their recipes in `layers/meta-yoke/recipes-ros/`.
+Full description of the nodes, topics, services and parameters: [ros/API.md](ros/API.md).
 
     NEO-6M ──UART──▶ [gps_node] ──/fix──▶ [location_monitor] ──/notify──▶ [notifier] ──HTTP──▶ ntfy.sh ──▶ phone
 
